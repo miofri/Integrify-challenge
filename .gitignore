@@ -1,3 +1,5 @@
+./pg_reference
+
 # Logs
 logs
 *.log
