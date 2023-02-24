@@ -1,5 +1,5 @@
-./pg_reference
-./frontend
+pg_reference/
+frontend/
 
 # Logs
 logs
