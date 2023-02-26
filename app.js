@@ -2,8 +2,6 @@ const express = require('express');
 const app = express()
 const todoRouter = require('./controllers/user_processes')
 const { pool } = require('./config/pg-config');
-
-
 const cors = require('cors')
 const session = require('express-session')
 const passport = require('passport');
@@ -32,9 +30,5 @@ app.use(express.json());
 app.use(cors());
 
 app.use('/api/v1', todoRouter);
-
-app.get("/", (req, res) => {
-	res.send("Hello World")
-})
 
 module.exports = app;
