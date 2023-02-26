@@ -1,5 +1,6 @@
 pg_reference/
 frontend/
+build/
 
 # Logs
 logs
