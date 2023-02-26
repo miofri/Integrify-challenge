@@ -44,3 +44,16 @@ const initialize = (passport) => {
 	})
 }
 module.exports = initialize;
+
+/*
+LocalStrategy defines how passport determine if a user exists or not;
+	as we use custom user/password (email, pass), we need to define it with usernameField
+	and passwordField.
+	verify then queries the db , first to make sure that no duplicate emails exists, then
+	compares the crypted password against the provided password.
+	function done will then returns messages if there's an error with flash, which can be
+	accessed in req.session.
+
+serializeUser: saves the provided user details
+deserializeUser: returns the saved details as req.user.
+*/
