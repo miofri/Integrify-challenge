@@ -1,10 +1,8 @@
 const express = require('express');
 const app = express()
-const todoRouter = require('./controllers/todo')
-
+const todoRouter = require('./controllers/user_processes')
 const { pool } = require('./config/pg-config');
-const bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({ extended: true }));
+
 
 const cors = require('cors')
 const session = require('express-session')
@@ -13,7 +11,6 @@ const LocalStrategy = require('passport-local');
 const flash = require('express-flash');
 
 app.use(express.static('build'));
-
 
 app.use(session({
 	secret: 'secret',

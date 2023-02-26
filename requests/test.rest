@@ -1,0 +1,59 @@
+PUT http://localhost:8080/api/v1/changePassword HTTP/1.1
+content-type: application/json
+
+{
+	"pass": "friidu1"
+}
+
+###
+POST http://localhost:8080/api/v1/signin  HTTP/1.1
+content-type:application/json
+
+{
+	"email": "321@321",
+	"pass": "friidu1"
+}
+
+###
+POST http://localhost:8080/api/v1/signup  HTTP/1.1
+content-type:application/json
+
+{
+	"email": "321@321",
+	"pass": "friidu1"
+}
+
+###
+GET http://localhost:8080/api/v1/todos?status=ongoing
+# Authorization: Basic 321@321:123123
+
+###
+GET http://localhost:8080/api/v1/todos
+# Authorization: Basic 321@321:123123
+
+###
+POST http://localhost:8080/api/v1/signout  HTTP/1.1
+content-type:application/json
+
+###
+POST http://localhost:8080/api/v1/todos  HTTP/1.1
+content-type:application/json
+
+{
+	"name": "testing",
+	"description": "Hi mom!",
+	"created": "",
+	"updated": "",
+	"status": "OnGoing"
+}
+
+###
+
+PUT http://localhost:8080/api/v1/todos/2 HTTP/1.1
+content-type:application/json
+
+{
+	"name": "update_test",
+	"description": "hello world!",
+	"status": "Completed"
+}

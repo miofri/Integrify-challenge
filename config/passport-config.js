@@ -7,22 +7,23 @@ const initialize = (passport) => {
 
 	passport.use(
 		new LocalStrategy({ usernameField: 'email', passwordField: 'pass' }, function verify(email, pass, done) {
-			console.log('authenticateUSer', email, pass);
+
 			pool.query(
 				`select * from users where email = $1`, [email], (err, results) => {
 
-					if (err) { console.log('HELP!') };
+					if (err) { console.log('strategy_err:failed_query') };
 
 					if (results.rows.length > 0) {
 						const user = results.rows[0];
 						bcrypt.compare(pass, user.password, (err, isMatch) => {
-							if (err) { console.log('HELP! 2', err) };
+							if (err) { console.log('strategy_err:failed_bcrypt_compare', err) };
 
 							if (isMatch) {
-								console.log('isMatch is true, success!');
-								return done(null, user)
+								return done(null, user);
 							}
-							else { return done(null, false, { message: "inccorect password" }) };
+							else {
+								return done(null, false, { message: "inccorect password" })
+							};
 						})
 					}
 					else {
@@ -39,7 +40,7 @@ const initialize = (passport) => {
 
 
 	passport.deserializeUser((user, done) => {
-		done(null, user)
+		return done(null, user)
 	})
 }
 module.exports = initialize;
