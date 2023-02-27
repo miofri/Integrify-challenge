@@ -11,40 +11,45 @@ initializePassport(passport);
 
 /* User administration actions */
 
-
+const emailReg = /\b[A-Za - z0 -9._ % +-]+@[A - Za - z0 - 9. -]+\.[A - Za - z]{ 2, 4 } \b/
 
 todoRouter.post('/signup', async (req, res, next) => {
+	const emailTest = emailReg.test(req.body.email.test)
+
 	const user = {
 		email: req.body.email,
 		pass: req.body.pass,
 	}
+	if (emailTest === true) {
+		try {
+			hashedPassword = await bcrypt.hash(req.body.pass, 10);
 
-	try {
-		hashedPassword = await bcrypt.hash(req.body.pass, 10);
+			const query = await pool.query(
+				`SELECT * FROM users WHERE email = $1`, [req.body.email]
+			)
 
-		const query = await pool.query(
-			`SELECT * FROM users WHERE email = $1`, [req.body.email]
-		)
+			if (query.rows.length > 0) {
+				return res.status(409).send("reg_fail:email_exists");
+			}
+			const insertNew = todoUtils.insertRegistrationData(req.body.email, hashedPassword);
 
-		if (query.rows.length > 0) {
-			return res.status(409).send("reg_fail:email_exists");
+			if (insertNew === true) {
+				req.login(user, (err) => {
+					console.log('logging in');
+					if (err) {
+						return next(err);
+					}
+				})
+				return res.status(200).end();
+			}
+			else
+				return res.status(400).send("something went wrong, check input data");
+		} catch (error) {
+			next(error);
 		}
-		const insertNew = todoUtils.insertRegistrationData(req.body.email, hashedPassword);
-
-		if (insertNew === true) {
-			req.login(user, (err) => {
-				console.log('logging in');
-				if (err) {
-					return next(err);
-				}
-			})
-			return res.status(200).end();
-		}
-		else
-			return res.status(400).send("something went wrong, check input data");
-	} catch (error) {
-		next(error);
 	}
+	else
+		res.status(400).send("signup_error:malformatted_data")
 })
 
 todoRouter.post('/signin', passport.authenticate('local', {

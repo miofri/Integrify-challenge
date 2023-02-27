@@ -6,7 +6,9 @@ const insertRegistrationData = async (email, password) => {
 	const created = new Date(Date.now()).toISOString();
 	try {
 		const query = await pool.query(
-			"INSERT INTO users (email, password, created, updated) VALUES ($1, $2, $3, $4)", [email, password, created, created]
+			"INSERT INTO users (email, password, created, updated) VALUES ($1, $2, $3, $4)", [email, password, created, created], (err, result) => {
+				if (err) return err;
+			}
 		);
 		console.log(`added an user with the email ${email}`);
 		return true;
