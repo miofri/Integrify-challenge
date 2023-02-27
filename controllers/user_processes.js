@@ -11,10 +11,7 @@ initializePassport(passport);
 
 /* User administration actions */
 
-todoRouter.get('/', (req, res) => {
-	console.log(req.user);
-	res.send('Welcome to To-do list');
-})
+
 
 todoRouter.post('/signup', async (req, res, next) => {
 	const user = {

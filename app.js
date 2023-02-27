@@ -31,4 +31,9 @@ app.use(cors());
 
 app.use('/api/v1', todoRouter);
 
+app.get('/', (req, res) => {
+	console.log(req.user);
+	res.send('Welcome to To-do list');
+})
+
 module.exports = app;

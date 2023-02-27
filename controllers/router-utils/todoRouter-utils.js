@@ -43,3 +43,8 @@ module.exports = {
 	insertRegistrationData,
 	checkStatus
 }
+
+/* insertRegistration: add new user into the pool
+	checkStatus: if the status given is in the format of OnGoing, Completed, NotStarted, then it will convert it to the
+	lowercase version. If it's not in in that format or the lowercase format, then it'll return an error.
+*/
