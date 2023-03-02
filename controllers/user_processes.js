@@ -7,14 +7,25 @@ const session = require('express-session');
 const todoUtils = require('./router-utils/todoRouter-utils');
 
 const initializePassport = require('../config/passport-config');
+const { application } = require('express');
 initializePassport(passport);
 
 /* User administration actions */
+// const requestLogger = (request, response, next) => {
+// 	console.log('Method:', request.method)
+// 	console.log('Path:  ', JSON.stringify(request.path))
+// 	console.log('Body:  ', JSON.stringify(request.body))
+// 	console.log('---')
+// 	next()
+// }
 
-const emailReg = /\b[A-Za - z0 -9._ % +-]+@[A - Za - z0 - 9. -]+\.[A - Za - z]{ 2, 4 } \b/
+// todoRouter.use(requestLogger);
+
+const emailReg = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}\b/
 
 todoRouter.post('/signup', async (req, res, next) => {
-	const emailTest = emailReg.test(req.body.email.test)
+	const emailTest = emailReg.test(req.body.email)
+	console.log(emailTest);
 
 	const user = {
 		email: req.body.email,
@@ -166,13 +177,17 @@ todoRouter.put('/todos/:id', async (req, res, next) => {
 		if (query.rows.length < 1) {
 			res.send("put_error:nonexistent_entry");
 		}
+
+		let validStatus = todoUtils.checkStatus(req.body.status);
+
 		const update = await pool.query(
-			"UPDATE todolist SET name = $1, description = $2, status = $3, updated = $4 WHERE id = $5", [req.body.name, req.body.description, req.body.status, updated, req.params.id]
+			"UPDATE todolist SET name = $1, description = $2, status = $3, updated = $4 WHERE id = $5", [req.body.name, req.body.description, validStatus, updated, req.params.id]
 		);
 
 	} catch (error) {
 		next(error);
 	}
 })
+
 
 module.exports = todoRouter;
