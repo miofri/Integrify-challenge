@@ -11,15 +11,6 @@ const { application } = require('express');
 initializePassport(passport);
 
 /* User administration actions */
-// const requestLogger = (request, response, next) => {
-// 	console.log('Method:', request.method)
-// 	console.log('Path:  ', JSON.stringify(request.path))
-// 	console.log('Body:  ', JSON.stringify(request.body))
-// 	console.log('---')
-// 	next()
-// }
-
-// todoRouter.use(requestLogger);
 
 const emailReg = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}\b/
 
