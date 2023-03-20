@@ -1,7 +1,7 @@
 # Integrify-challenge
 ![image](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)![image](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
 
-I used WSL2 Ubuntu. I have not used passport.js, nor postgresql before this (only used MongoDB before). This was a fun learning-filled challenge and I wish I had more time to do tests & docker part (which I would do anyway after I submit this!).
+I used WSL2 Ubuntu. I have not used passport.js, nor postgresql before this (only used MongoDB before). This was a fun learning-filled challenge and I wish I had more time to do tests & docker part.
 
 ### Navigation: 
 - `./controllers`: contains routers.
